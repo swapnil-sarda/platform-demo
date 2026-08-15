@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: payments-api
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: payments-api
+    platform.example.io/owner: payments-team
+spec:
+  project: default
+  source:
+    repoURL: 
+    targetRevision: main
+    path: services/payments-api
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: payments
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
