@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: payments-api
+  namespace: payments
+  labels:
+    app.kubernetes.io/name: payments-api
+    platform.example.io/owner: payments-team
+spec:
+  groups:
+    - name: payments-api.rules
+      rules:
+        - alert: PaymentsApiTargetDown
+          expr: up{namespace="payments",service="payments-api"} == 0
+          for: 5m
+          labels:
+            severity: warning
+            platform.example.io/owner: payments-team
+          annotations:
+            summary: "payments-api Prometheus target is down"
+            description: "Prometheus has been unable to scrape payments-api for 5 minutes."

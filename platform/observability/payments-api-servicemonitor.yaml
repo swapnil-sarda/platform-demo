@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: payments-api
+  namespace: payments
+  labels:
+    app.kubernetes.io/name: payments-api
+    platform.example.io/owner: payments-team
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: payments-api
+  namespaceSelector:
+    matchNames:
+      - payments
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 30s

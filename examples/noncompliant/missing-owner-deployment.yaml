@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: missing-owner-demo
+  namespace: payments
+  labels:
+    app.kubernetes.io/name: missing-owner-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: missing-owner-demo
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: missing-owner-demo
+    spec:
+      containers:
+        - name: demo
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi

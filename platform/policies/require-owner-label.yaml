@@ -1,0 +1,27 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-platform-owner-label
+  annotations:
+    policies.kyverno.io/title: Require platform owner label
+    policies.kyverno.io/category: Platform governance
+    policies.kyverno.io/severity: medium
+    policies.kyverno.io/subject: Deployment
+spec:
+  background: true
+  rules:
+    - name: require-owner-label-on-deployments
+      match:
+        any:
+          - resources:
+              kinds:
+                - Deployment
+              namespaces:
+                - payments
+      validate:
+        failureAction: Enforce
+        message: "Deployments in the payments namespace require a non-empty platform.example.io/owner label."
+        pattern:
+          metadata:
+            labels:
+              platform.example.io/owner: "?*"
