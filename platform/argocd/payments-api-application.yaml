@@ -9,7 +9,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 
+    repoURL: https://github.com/swapnil-sarda/platform-demo.git
     targetRevision: main
     path: services/payments-api
   destination:
