@@ -1,0 +1,43 @@
+name: Validate Platform Paved Path
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install test dependencies
+        run: pip install -r app/requirements-dev.txt
+
+      - name: Run application tests
+        run: PYTHONPATH=app pytest -q app/tests
+
+      - name: Build local container image
+        run: docker build -t payments-api:ci app
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
+        with:
+          version: v1.31.0
+
+      - name: Render application manifests
+        run: kubectl kustomize services/payments-api
+
+      - name: Render tenant baseline manifests
+        run: kubectl kustomize platform/tenants/payments

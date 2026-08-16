@@ -9,6 +9,7 @@ __pycache__/
 htmlcov/
 .venv/
 venv/
+__init__.py
 
 # Local configuration
 .env

@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: payments-tenant-baseline
+  namespace: argocd
+  labels:
+    platform.example.io/owner: payments-team
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/swapnil-sarda/platform-demo.git
+    targetRevision: main
+    path: platform/tenants/payments
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: payments
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
