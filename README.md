@@ -195,23 +195,6 @@ GET /metrics
 
 These manifests are rendered locally but not applied because this Kind demo does not install Prometheus Operator, Prometheus, or Grafana.
 
-## Scope limits
-
-This is a small local, single-cluster demonstration. It intentionally does not implement:
-
-- Backstage
-- Jenkins
-- Artifactory
-- Terraform
-- Crossplane
-- OpenSearch or Logstash
-- Slack, ServiceNow, Opsgenie, or BigPanda
-- Keycloak
-- SPIFFE/SPIRE
-- Multi-cluster infrastructure
-- Production-grade tenant isolation
-- Local Prometheus or Grafana
-
 ## Enterprise mapping
 
 | Demo component | Enterprise mapping |
